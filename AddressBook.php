@@ -59,10 +59,25 @@ class AddressBook
             echo "This name does not exist";
         }
     }
+
+    Public function deleteContact()
+    {
+        $deleteName = readline("Enter the first name of person to delete contact : ");
+        $edited = false;
+        for($i = 0; $i < count($this->array); $i++) {
+            $name = $this->array[$i];
+            if ($deleteName == $name->getFirstName()) {
+                unset($this->array[$i]);
+                $this->printContact();
+            }
+        }
+    }
     public function printContact()
     {
         for ($i = 0; $i < count($this->array); $i++) {
-            echo $this->array[$i];
+            foreach($this->array as $contact) {
+                echo $contact;
+            }
         }
     }
 }
@@ -70,20 +85,23 @@ class AddressBook
 echo "Welcome to Address Book Program" . "\n";
 $addressBook = new AddressBook();
 while (true) {
-    $getUserInput = readline("Enter 1 to add new contact"
-                            ."\n"."Enter 2 to edit Contact"
-                            ."\n"."Enter 3 to Exit");
+    $getUserInput = readline("\nEnter 1 to add new contact\nEnter 2 to edit \nEnter 3 to delete \nEnter 4 to exit \n");
     switch ($getUserInput) {
         case 1:
             $addressBook->addNewContact();
             break;
         case 2: 
             $addressBook->editContact();
-            break;   
+            break;
         case 3:
+            $addressBook->deleteContact();
+            break;    
+        case 4:
             exit("Exit");
             break;
         default:
             echo "Invalid user input";
     }
 }
+
+?>
