@@ -39,7 +39,6 @@ class MultipleAddressBook
                             break;
                         }
                         for($j = 0; $j < $number; $j++) 
-                        //if(in_array($firstName, $values)) {
                         if($firstName == $values[$j]->getFirstName()) {
                             echo "The entered person is already exist.\n";
                             $i--;
@@ -144,6 +143,17 @@ class MultipleAddressBook
                 }
             }
         }
+    }
+    public function contactsCount($name) {
+        $count = 0;
+        foreach($this->array as $key => $values) {
+            for($i = 0; $i < count($values); $i++) {
+                if($name == $values[$i]->getState() || $name == $values[$i]->getCity()) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
     }
 }
 ?>
