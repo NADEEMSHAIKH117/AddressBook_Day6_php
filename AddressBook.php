@@ -6,7 +6,7 @@ class AddressBook
     public $array = [];
     public $person;
 
-    public function addNewContact()
+    public function addNewContact($firstName)
     {
         $firstName = readline("Enter First Name : ");
         $lastName = readline("Enter Last Name : ");
