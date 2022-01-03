@@ -14,7 +14,7 @@ class MultipleAddressBook
     {
         $bookName = readline("Enter Name of new Address Book: " . "\n");
         if (array_key_exists($bookName, $this->array)) {
-            echo "Address Book wWith this name exists, Enter new name.";
+            echo "Address Book With this name exists, Enter new name.";
             $this->addAddressBook();
         } else {
             $this->array[$bookName] = NULL;
@@ -27,18 +27,36 @@ class MultipleAddressBook
 
     public function addContact()
     {
-        $newContact = readline("Enter the name of Address book to add the contact.");
-        $number = readline("Enter the number of contacts you want to enter");
-        if (array_key_exists($newContact, $this->array)) {
-            // $this->addressBook->addNewContact();
-            for ($i = 0; $i < $number; $i++) {
-                $this->array[$newContact][$i] = $this->addressBook->addNewContact();
+        $newContact = readline("Enter the name of Address book to add the contact : ");
+        $number = readline("Enter the number of contacts you want to enter : ");
+        if(array_key_exists($newContact, $this->array)) {
+            for($i = 0; $i < $number; $i++) {
+                $firstName = readline("Enter First Name : ");
+                foreach($this->array as $key => $values) {
+                    if($key == $newContact) {
+                        if($values == NULL) {
+                            $this->array[$newContact][$i] = $this->addressBook->addNewContact($firstName);
+                            break;
+                        }
+                        for($j = 0; $j < $number; $j++) 
+                        //if(in_array($firstName, $values)) {
+                        if($firstName == $values[$j]->getFirstName()) {
+                            echo "The entered person is already exist.\n";
+                            $i--;
+                            break;
+                        } else {
+                            $this->array[$newContact][$i] = $this->addressBook->addNewContact($firstName);
+                            echo "Contact added successfully. \n";
+                            break;
+                        }
+                    }
+                }
+                
             }
         } else {
             echo "No book found\n";
         }
     }
-
     public function editContactInBook(){
         $editBookName = readline("Enter Name of Address book you want to edit: "."\n");
         $editName = readline("Enter the First name of person to edit contact: "."\n");
